@@ -1,0 +1,47 @@
+# https://help.github.com/en/articles/workflow-syntax-for-github-actions
+
+name: Ubuntu
+
+on:
+- push
+
+env:
+  SSH_ACTIONS: true
+
+jobs:
+  install zerotier:
+    name: Install zerotier by bash script on the offical page.
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+        - ubuntu-18.04
+        - ubuntu-20.04
+    steps:
+    - name: Checkout source codes
+      uses: actions/checkout@v2
+
+    - name: Install zerotier one
+      run: curl -s https://install.zerotier.com | sudo bash
+
+    - name: join network Id
+      run: sudo zerotier-cli join $${ secrets.NETWORK_ID }}
+
+    - name: orbit moon
+      if ${{ env.moon }} == true
+      run: sudo zerotier-cli orbit $${{ secrets.moon }} $${{ secret.moon }}
+
+    - name: check /root/.ssh directory
+      run: |
+        if [ ! -d /root  ]; then sudo mkdir /root; fi
+        if [ ! -d /root/.ssh ]; then sudo mkdir /root/.ssh; fi
+
+    - name: sshd public add and fix permission
+      run: |
+        echo ${{ secrets.SSH_PUBLIC_KEY }} | sudo tee -a /root/.ssh/authorized_keys
+        sudo chown 0600 /root/.ssh/authorized_keys
+
+    - name: run machine by tail
+      run: |
+        tail -f /dev/null
