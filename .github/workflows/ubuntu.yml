@@ -29,7 +29,7 @@ jobs:
 
     - name: Update system
       run: |
-        sudo -E aptupdate
+        sudo -E apt update
         sudo -E apt full-upgrade
 
     - name: join network Id
