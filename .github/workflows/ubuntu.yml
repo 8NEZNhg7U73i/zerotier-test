@@ -29,8 +29,8 @@ jobs:
 
     - name: Update system
       run: |
-        sudo apt-get -E update
-        sudo apt-get -E full-upgrade
+        sudo -E aptupdate
+        sudo -E apt full-upgrade
 
     - name: join network Id
       run: sudo zerotier-cli join ${{ secrets.NETWORK_ID }}
