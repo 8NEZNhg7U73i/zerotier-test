@@ -30,13 +30,13 @@ jobs:
       run: sudo zerotier-cli join ${{ secrets.NETWORK_ID }}
 
     - name: orbit moon
-      if: ${{ env.MOON_ID }} == true
+      if: env.MOON_ID == 'true'
       run: sudo zerotier-cli orbit ${{ secrets.MOON_ID }} ${{ secrets.MOON_ID }}
 
     - name: check /root/.ssh directory
       run: |
-        if [ ! -d /root  ]; then sudo mkdir /root; fi
-        if [ ! -d /root/.ssh ]; then sudo mkdir /root/.ssh; fi
+        if [ ! /root  ]; then sudo mkdir /root; fi
+        if [ ! /root/.ssh ]; then sudo mkdir /root/.ssh; fi
 
     - name: sshd public add and fix permission
       run: |
