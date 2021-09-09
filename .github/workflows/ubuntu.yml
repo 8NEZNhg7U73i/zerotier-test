@@ -44,5 +44,9 @@ jobs:
         sudo chown 0600 /root/.ssh/authorized_keys
 
     - name: run machine by tail
-      run: |
-        tail -f /dev/null
+      if: env.SSH_ACTIONS == 'false'
+      run: tail -f /dev/null
+
+    - name: SSH connection to Actions
+      uses: P3TERX/ssh2actions@main
+      if: env.SSH_ACTIONS == 'true'
