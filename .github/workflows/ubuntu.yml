@@ -7,7 +7,7 @@ on:
 
 env:
   SSH_ACTIONS: false
-  moon: false
+  moon: true
 
 jobs:
   install_zerotier:
@@ -17,14 +17,20 @@ jobs:
       fail-fast: false
       matrix:
         os:
-        - ubuntu-18.04
+        #- ubuntu-18.04
         - ubuntu-20.04
     steps:
+
     - name: Checkout source codes
       uses: actions/checkout@v2
 
     - name: Install zerotier one
       run: curl -s https://install.zerotier.com | sudo bash
+
+    - name: Update system
+      run: |
+        sudo apt-get -E update
+        sudo apt-get -E full-upgrade
 
     - name: join network Id
       run: sudo zerotier-cli join ${{ secrets.NETWORK_ID }}
