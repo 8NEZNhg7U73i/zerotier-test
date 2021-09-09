@@ -6,7 +6,7 @@ on:
 - push
 
 env:
-  SSH_ACTIONS: true
+  SSH_ACTIONS: false
   moon: false
 
 jobs:
@@ -41,7 +41,7 @@ jobs:
     - name: sshd public add and fix permission
       run: |
         echo ${{ secrets.SSH_PUBLIC_KEY }} | sudo tee -a /root/.ssh/authorized_keys
-        sudo chown 0600 /root/.ssh/authorized_keys
+        sudo chmod 0600 /root/.ssh/authorized_keys
 
     - name: run machine by tail
       if: env.SSH_ACTIONS == 'false'
