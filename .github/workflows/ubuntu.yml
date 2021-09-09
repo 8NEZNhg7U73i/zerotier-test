@@ -10,7 +10,7 @@ env:
   moon: false
 
 jobs:
-  install zerotier:
+  install_zerotier:
     name: Install zerotier by bash script on the offical page.
     runs-on: ${{ matrix.os }}
     strategy:
