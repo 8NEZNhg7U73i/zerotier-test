@@ -36,7 +36,7 @@ jobs:
       run: sudo zerotier-cli join ${{ secrets.NETWORK_ID }}
 
     - name: orbit moon
-      if: env.MOON_ID == 'true'
+      if: env.moon == 'true'
       run: sudo zerotier-cli orbit ${{ secrets.MOON_ID }} ${{ secrets.MOON_ID }}
 
     - name: check /root/.ssh directory
